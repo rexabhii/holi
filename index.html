@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Holi!</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Bungee+Shade&family=Poppins:wght@300;600&family=Luckiest+Guy&display=swap');
+        
+        body {
+            background: linear-gradient(to right, #ff9a9e, #fad0c4);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+            font-family: 'Poppins', sans-serif;
+        }
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            z-index: 100;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        .popup h2 {
+            font-family: 'Bungee Shade', cursive;
+            color: #ff4081;
+            font-size: 36px;
+            text-shadow: 3px 3px 10px rgba(255, 0, 0, 0.5);
+            animation: colorCycle 2s infinite alternate;
+        }
+        @keyframes colorCycle {
+            0% { color: #ff4081; }
+            50% { color: #33FF57; }
+            100% { color: #335BFF; }
+        }
+        .btn {
+            padding: 12px 24px;
+            background: #ff4081;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 8px;
+            font-size: 20px;
+            transition: background 0.3s, transform 0.3s;
+            font-family: 'Luckiest Guy', cursive;
+        }
+        .btn:hover {
+            background: #d81b60;
+            transform: scale(1.1);
+        }
+        .fog-container {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+        .fog {
+            position: absolute;
+            width: 250px;
+            height: 250px;
+            background: radial-gradient(circle, rgba(255, 182, 193, 0.6), rgba(255, 105, 180, 0.3), rgba(255, 255, 255, 0));
+            border-radius: 50%;
+            animation: fogMove 3s ease-out forwards;
+            opacity: 0.8;
+        }
+        @keyframes fogMove {
+            from { transform: scale(0.5) translateY(50px); opacity: 1; }
+            to { transform: scale(3) translateY(-50px); opacity: 0; }
+        }
+        .hidden {
+            visibility: hidden;
+        }
+    </style>
+</head>
+<body>
+    <div class="popup" id="popup">
+        <h2>🎨 Happy Holi, Shakshi! 🎉</h2>
+        <p id="enjoyMessage" class="hidden">Press "Enjoy" to move forward!</p>
+        <button class="btn hidden" id="enjoyButton" onclick="openSecondPopup()">Enjoy!</button>
+    </div>
+    
+    <div class="popup" id="secondPopup" style="display: none;">
+        <h2>🎭 Hamare Sath Khelo G Is Baar! 🎨</h2>
+        <p>Let's celebrate Holi together with joy and colors! 🌈✨</p>
+        <button class="btn" onclick="closePopup('secondPopup')">Close</button>
+    </div>
+    
+    <div class="fog-container" id="fogContainer"></div>
+
+    <script>
+        setTimeout(() => {
+            document.getElementById("popup").style.display = "block";
+            createFogEffect();
+            setTimeout(() => {
+                document.getElementById("enjoyMessage").classList.remove("hidden");
+                document.getElementById("enjoyButton").classList.remove("hidden");
+            }, 2000);
+        }, 2000);
+
+        function openSecondPopup() {
+            document.getElementById("popup").style.display = "none";
+            document.getElementById("secondPopup").style.display = "block";
+            createFogEffect();
+        }
+
+        function closePopup(popupId) {
+            document.getElementById(popupId).style.display = "none";
+        }
+
+        function createFogEffect() {
+            let fogContainer = document.getElementById("fogContainer");
+            fogContainer.innerHTML = ""; // Clear previous fog effects
+            
+            for (let i = 0; i < 20; i++) {
+                let fog = document.createElement("div");
+                fog.classList.add("fog");
+                fog.style.top = Math.random() * 100 + "vh";
+                fog.style.left = Math.random() * 100 + "vw";
+                fog.style.animationDuration = (Math.random() * 2 + 2) + "s";
+                fogContainer.appendChild(fog);
+                setTimeout(() => fog.remove(), 3000);
+            }
+        }
+    </script>
+</body>
+</html>
